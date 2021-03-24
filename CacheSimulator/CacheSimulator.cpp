@@ -233,7 +233,7 @@ void CacheSimulator::readTrace(char* file){
     int index=0;
     ofstream  myfile;
     // myfile.open("Log/4.txt");
-    myfile.open("output/2_64_4_LRU.txt");
+    myfile.open("output/4_8_8_TREE.txt");
 
     FILE* fileName = fopen(file,"r");
     while(!feof(fileName))

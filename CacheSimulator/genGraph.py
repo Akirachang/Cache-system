@@ -7,7 +7,7 @@ a = arr.array('d', [])
 b = arr.array('d', [])
 c = arr.array('d', [])
 
-f=open("output/2_64_4_LRU.txt","r")
+f=open("output/4_8_8_TREE.txt","r")
 
 line=f.readlines()
 for x in line:
