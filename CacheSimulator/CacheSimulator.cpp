@@ -66,12 +66,10 @@ int CacheSimulator::selectVictim(double_long setBase, int swapStyle, int hitInde
             break;
 
         case TREE:
-        // cout<<"in"<<endl;
             char curr = caches[setBase].BIT;
             for(int i=0;i<(1<<mapWays);i++){
                 int temp;
                 if((curr & mask[i]) == val[i]){          
-                    // cout<<"in in"<<endl;
                     freeIndex = i;
                     curr ^= mask[i];
                     break;
@@ -88,7 +86,6 @@ int CacheSimulator::selectVictim(double_long setBase, int swapStyle, int hitInde
             writeMemCount++;
         }
     } 
-    // cout<<"free: "<<freeIndex<<endl;
     return freeIndex;
 
 }
@@ -232,7 +229,6 @@ void CacheSimulator::initialize(double_long size, double_long lineSize, double_l
 void CacheSimulator::readTrace(char* file){
     int index=0;
     ofstream  myfile;
-    // myfile.open("Log/4.txt");
     myfile.open("output/4_8_8_TREE.txt");
 
     FILE* fileName = fopen(file,"r");
@@ -240,7 +236,6 @@ void CacheSimulator::readTrace(char* file){
     {
        char op;
        char op_style;
-    //    long long addr;
        char addr[128];
         fscanf(fileName, "%s %c\n", &addr, &op);
         if(op == 'r'||op == 'l'){
@@ -250,11 +245,7 @@ void CacheSimulator::readTrace(char* file){
             op_style = 'w';
         }
 
-        // printf(addr);
         string sBinary = string(addr);
-        // for(int i=0;i<48;i++){
-        //     sBinary+=addr[i];
-        // }
     
     long long num=0;
     for(int i=2;i<sBinary.length();i++){
@@ -262,19 +253,16 @@ void CacheSimulator::readTrace(char* file){
         num+=curr;
         num=num<<1;
     }
-        // cout<<rest;
-    //    printf("%llx",num);
-        // printf("%llx",ll);   
+       
         int rtn=op_cache(num, op_style);
     // cout<<rtn;
-    //for drawing graph:
-    // if(rtn == -1)
-    //     myfile<<"Miss"<<endl;
-    // else
-    //     myfile<<"Hit"<<endl;
-    myfile<<index<<",";
-    myfile << 100.0 * hitCount / (hitCount + missCount)<<",";
-    myfile<<100.0 * missCount / (hitCount + missCount)<<endl;
+    if(rtn == -1)
+        myfile<<"Miss"<<endl;
+    else
+        myfile<<"Hit"<<endl;
+    // myfile<<index<<",";
+    // myfile << 100.0 * hitCount / (hitCount + missCount)<<",";
+    // myfile<<100.0 * missCount / (hitCount + missCount)<<endl;
 
     // printf("index: %d, ", index);
     // printf("hit rate:%f, miss rate: %f\n",100.0 * hitCount / (hitCount + missCount),100.0 * missCount / (hitCount + missCount));
